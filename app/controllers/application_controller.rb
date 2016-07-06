@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   skip_before_filter :verify_authenticity_token
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
+  respond_to :json
+  respond_to :html, only: []
+  respond_to :xml, only: []
 
   def preflight
     render nothing: true

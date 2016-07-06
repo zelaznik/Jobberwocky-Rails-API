@@ -8,7 +8,14 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :identities
 
+  before_create :generate_authentication_token!
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+
+  def generate_authentication_token!
+    begin
+      self.auth_token = Devise.friendly_token
+    end while self.class.exists?(auth_token: auth_token)
+  end
 
   def self.create_with_omniauth(info)
     create(name: info['name'])

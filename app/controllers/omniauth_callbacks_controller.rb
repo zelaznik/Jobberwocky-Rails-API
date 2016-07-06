@@ -3,6 +3,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   protect_from_forgery with: :null_session
   skip_before_filter :verify_authenticity_token
   respond_to :json
+  respond_to :html, only: []
+  respond_to :xml, only: []
 
   def self.provides_callback_for(provider)
     class_eval %Q{

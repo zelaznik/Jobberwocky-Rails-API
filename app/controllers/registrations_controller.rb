@@ -15,7 +15,7 @@ class RegistrationsController < ApplicationController
       user = User.create! email: email, password: password
       user.generate_authentication_token!
       data = {user: {id: user.id, email: user.email, auth_token: user.auth_token}}
-      render json: data, status: 200, location: [:api, user]
+      render json: data, status: 200
     end
   end
 

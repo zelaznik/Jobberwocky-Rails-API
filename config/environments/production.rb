@@ -63,4 +63,5 @@ Jobberwocky::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   ENV['FRONT_END_URL'] = 'http://www.jobberwocky.net'
+  ENV['API_ROOT_URL'] =  'https://api.jobberwocky.net'
 end

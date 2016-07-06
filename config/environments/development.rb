@@ -22,5 +22,6 @@ Jobberwocky::Application.configure do
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 
-  ENV['FRONT_END_URL'] = 'http://railsapi.dev'
+  ENV['FRONT_END_URL'] = 'http://www.nodereactjs.dev'
+  ENV['API_ROOT_URL'] = 'http://www.railsapi.dev'
 end

@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  TEMP_EMAIL_PREFIX = 'change@me'
-  TEMP_EMAIL_REGEX = /\Achange@me/
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -9,7 +7,6 @@ class User < ActiveRecord::Base
   has_many :identities
 
   after_create :generate_authentication_token!
-  validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 
   def generate_authentication_token!
     self.auth_token = Devise.friendly_token
@@ -32,12 +29,17 @@ class User < ActiveRecord::Base
 
       # Create the user if it's a new registration
       if user.nil?
-        user = User.new(
+        user_params = {
           name: auth.extra.raw_info.name,
-          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
+          email: email ? email : "uid-#{auth.uid}-#{auth.provider}@#{ENV['DOMAIN_NAME']}",
           password: Devise.friendly_token[0,20]
-        )
-        user.skip_confirmation!
+        }
+        puts user_params
+        debugger
+        user = User.create(user_params)
+        if user.respond_to?(:skip_confirmation)
+          user.skip_confirmation!
+        end
         user.save!
       end
     end
@@ -48,10 +50,6 @@ class User < ActiveRecord::Base
       identity.save!
     end
 
-    user
-  end
-
-  def email_verified?
-    self.email && self.email !~ TEMP_EMAIL_REGEX
+    return user
   end
 end

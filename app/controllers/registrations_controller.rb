@@ -1,5 +1,6 @@
 class RegistrationsController < ApplicationController
   before_action :authenticate_request, except: [:create]
+  force_ssl if: proc { !Rails.env.development? }
 
   def create
     email = registration_params[:email]

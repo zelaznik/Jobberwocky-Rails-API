@@ -1,7 +1,6 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  protect_from_forgery with: :null_session
-  skip_before_filter :verify_authenticity_token
   force_ssl if: proc { !Rails.env.development? }
+  protect_from_forgery with: :null_session
 
   respond_to :json
   respond_to :html, only: []

@@ -12,6 +12,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 
+gem 'byebug'
 gem 'pry-rails'
 gem 'better_errors'
 

@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
 
-  before_action :authenticate_request, only: [:current_user]
-
   respond_to :json
   respond_to :html, only: []
   respond_to :xml, only: []

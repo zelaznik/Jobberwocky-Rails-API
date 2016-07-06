@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
   before_action :authenticate_request, except: [:create]
 
+  def new
+  end
+
   def create
     user_email = session_params[:email]
     user_password = session_params[:password]
@@ -8,7 +11,6 @@ class SessionsController < ApplicationController
 
     if user && user.valid_password?(user_password)
       user.generate_authentication_token!
-      user.save
       data = {user: {id: user.id, email: user.email, auth_token: user.auth_token}}
       render json: data, status: 200
     else

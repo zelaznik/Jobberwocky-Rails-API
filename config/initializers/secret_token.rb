@@ -9,4 +9,5 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Jobberwocky::Application.config.secret_key_base = '3cd632a2bc779804b2803d6c78d39e70c67b820a64d79fe73ab8f1dbeaec63f7e49b11ee3435589990158e0f752f53ccef7c944f81bf3a8ace1f8f25f6ca6732'
+
+Jobberwocky::Application.config.secret_key_base = Rails.application.secrets.secret_key_base

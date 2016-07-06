@@ -1,7 +1,7 @@
-class SessionsController < ApplicationController #< Devise::SessionsController
-  # force_ssl if: proc { !Rails.env.development? }
+class SessionsController < Devise::SessionsController
   protect_from_forgery with: :null_session
   skip_before_filter :verify_authenticity_token
+  force_ssl if: proc { !Rails.env.development? }
 
   respond_to :json
   respond_to :html, only: []

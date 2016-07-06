@@ -8,19 +8,23 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def self.provides_callback_for(provider)
     define_method provider do
-      @user = User.find_for_oauth(env["omniauth.auth"], current_user)
-      if @user.persisted?
-        sign_in @user, event: :authentication
-        @user.generate_authentication_token!
-        data = {user: {id: @user.id, email: @user.email, auth_token: @user.auth_token}}
-        render json: data, status: 200
+      user = User.find_for_oauth(env["omniauth.auth"], current_user)
+      if user.persisted?
+        sign_in user, event: :authentication
+        user.generate_authentication_token!
+        auth = {
+          auth_token: user.auth_token,
+          email: user.email, id: user.id
+        }
       else
-        render json: { errors: "Failed to authenticate"}, status: 422
+        auth = {user: false}
       end
+
+      redirect_to "#{params[:callback_uri]}?#{auth.to_query}"
     end
   end
 
-  [:twitter, :facebook, :linked_in].each do |provider|
+  [:twitter, :facebook].each do |provider|
     provides_callback_for provider
   end
 end

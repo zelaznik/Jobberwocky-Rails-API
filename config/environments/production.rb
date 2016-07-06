@@ -62,4 +62,6 @@ Jobberwocky::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  ENV['FRONT_END_URL'] = 'http://www.jobberwocky.net'
 end

@@ -13,7 +13,7 @@ class SessionsController < ApplicationController #< Devise::SessionsController
     user = User.find_by(email: user_email)
 
     if user && user.valid_password?(user_password)
-      #sign_in user, store: false
+      sign_in user, store: false
       user.generate_authentication_token!
       user.save
       data = {user: {id: user.id, email: user.email, auth_token: user.auth_token}}

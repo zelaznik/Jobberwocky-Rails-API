@@ -1,5 +1,12 @@
-class User < ActiveRecord::Base
+def onErrSkip
+  begin
+    return yield
+  rescue Exception
+    return nil
+  end
+end
 
+class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :omniauthable,
@@ -21,22 +28,16 @@ class User < ActiveRecord::Base
     ity.provider = auth["provider"]
     ity.uid      = auth["uid"]
 
-    ity.name     = auth["info"]["name"]
-    ity.image    = auth["info"]["image"]
-    ity.link     = auth["info"]["link"]
-
-    # ity.gender   = auth["info"]["gender"]
-    # ity.token    = auth["credentials"]["token"]
-    # ity.expires  = auth["credentials"]["expires_at"]
+    onErrSkip { ity.name = auth["info"]["name"]  }
+    onErrSkip { ity.image = auth["info"]["image"] }
+    onErrSkip { ity.link = auth["info"]["link"]  }
   end
 
   def self.twitter_parse(auth, ity)
-    begin
-      ity.provider = auth[:provider]
-      ity.uid      = auth[:uid]
-      ity.auth = auth.to_json
-    rescue
-    end
+    ity.provider = auth[:provider]
+    ity.uid      = auth[:uid]
+
+    onErrSkip { ity.name = auth["info"]["name"] }
   end
 
   def self.find_for_oauth(auth, signed_in_resource = nil)

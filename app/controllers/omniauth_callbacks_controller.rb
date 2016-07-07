@@ -8,6 +8,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def self.provides_callback_for(provider)
     define_method provider do
+      callback_uri = params[:callback_uri]
       user = User.find_for_oauth(env["omniauth.auth"], current_user)
       if user.persisted?
         sign_in user, event: :authentication
@@ -20,7 +21,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         auth = {user: false}
       end
 
-      redirect_to "#{params[:callback_uri]}?#{auth.to_query}"
+      redirect_to "#{callback_uri}?#{auth.to_query}"
     end
   end
 

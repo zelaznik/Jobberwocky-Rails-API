@@ -34,8 +34,6 @@ class User < ActiveRecord::Base
           email: email ? email : "uid-#{auth.uid}-#{auth.provider}@#{ENV['DOMAIN_NAME']}",
           password: Devise.friendly_token[0,20]
         }
-        puts user_params
-        debugger
         user = User.create(user_params)
         if user.respond_to?(:skip_confirmation)
           user.skip_confirmation!

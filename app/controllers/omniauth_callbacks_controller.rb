@@ -11,7 +11,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       callback_uri = params[:callback_uri]
       user = User.find_for_oauth(env["omniauth.auth"], current_user)
       if user.persisted?
-        sign_in user, event: :authentication
+        # sign_in user, event: :authentication
         user.generate_authentication_token!
         auth = {
           auth_token: user.auth_token,

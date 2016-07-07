@@ -35,13 +35,17 @@ class User < ActiveRecord::Base
     onErrSkip { ity.name = auth["info"]["name"]  }
     onErrSkip { ity.image = auth["info"]["image"] }
     onErrSkip { ity.link = auth["info"]["link"]  }
+    onErrSkip { ity.email = auth["info"]["email"]  }
   end
 
   def self.twitter_parse(auth, ity)
-    ity.provider = auth[:provider]
-    ity.uid      = auth[:uid]
+    ity.provider = auth["provider"]
+    ity.uid      = auth["uid"]
 
-    onErrSkip { ity.name = auth["info"]["name"] }
+    onErrSkip { ity.name = auth["info"]["name"]   }
+    onErrSkip { ity.image = auth["info"]["image"] }
+    onErrSkip { ity.link = auth["info"]["link"]   }
+    onErrSkip { ity.email = auth["info"]["email"] }
   end
 
   def self.find_for_oauth(auth, signed_in_resource = nil)

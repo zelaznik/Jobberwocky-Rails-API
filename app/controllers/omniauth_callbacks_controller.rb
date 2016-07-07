@@ -8,6 +8,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def provides_callback_for(provider)
     user = User.find_for_oauth(env["omniauth.auth"], current_user)
+
     if user.persisted?
       user.generate_authentication_token!
       auth = {

@@ -11,9 +11,13 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :identities, inverse_of: :user, dependent: :destroy
 
+  has_many :identities, inverse_of: :user, dependent: :destroy
   after_create :generate_authentication_token!
+
+  def image
+    identities.map {|i| i.image }.first
+  end
 
   def generate_authentication_token!
     self.auth_token = Devise.friendly_token

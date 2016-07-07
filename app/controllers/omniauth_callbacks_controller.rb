@@ -12,7 +12,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user.generate_authentication_token!
       auth = {
         auth_token: user.auth_token,
-        email: user.email, id: user.id
+        email: user.email, id: user.id,
+        name: user.name, image: user.image
       }
     else
       auth = {user: false}

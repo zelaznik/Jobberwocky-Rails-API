@@ -16,6 +16,8 @@ gem 'byebug'
 gem 'pry-rails'
 gem 'better_errors'
 
+gem 'active_model_serializers', '0.9.3'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

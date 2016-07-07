@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     if user && user.valid_password?(user_password)
       user.generate_authentication_token!
       data = {user: {id: user.id, email: user.email, auth_token: user.auth_token}}
-      render json: data, status: 200
+      render json: user, serializer: CurrentUserSerializer, status: 200
     else
       render json: { errors: "Invalid email or password" }, status: 422
     end
@@ -29,13 +29,7 @@ class SessionsController < ApplicationController
 
   def show
     if current_user
-      data = {
-        current_user: {
-          id: current_user.id, email: current_user.email,
-          auth_token: current_user.auth_token
-        }
-      }
-      render json: data, status: 200
+      render json: current_user, serializer: CurrentUserSerializer, status: 200
     else
       render json: {}, status: 404
     end

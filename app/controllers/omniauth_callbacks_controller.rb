@@ -7,10 +7,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   respond_to :xml, only: []
 
   def provides_callback_for(provider)
-    callback_uri = params[:callback_uri]
     user = User.find_for_oauth(env["omniauth.auth"], current_user)
     if user.persisted?
-      # sign_in user, event: :authentication
       user.generate_authentication_token!
       auth = {
         auth_token: user.auth_token,
@@ -20,7 +18,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       auth = {user: false}
     end
 
-    redirect_to "#{callback_uri}?#{auth.to_query}"
+    base_url = "#{ENV['FRONT_END_URL']}/auth_callback"
+    redirect_to "#{base_url}?#{auth.to_query}"
   end
 
   def twitter
@@ -32,6 +31,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def auth_params
-    params.permit(:callback_url)
+    params.permit(:callback_uri)
   end
 end

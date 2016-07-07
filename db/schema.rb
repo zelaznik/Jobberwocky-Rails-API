@@ -18,13 +18,15 @@ ActiveRecord::Schema.define(version: 20160706123058) do
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
+    t.string   "provider",   null: false
+    t.string   "uid",        null: false
+    t.json     "raw"
+    t.string   "name"
+    t.string   "link"
+    t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

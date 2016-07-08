@@ -32,6 +32,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     provides_callback_for :facebook
   end
 
+  def github
+    provides_callback_for :github
+  end
+
   def auth_params
     params.permit(:callback_uri)
   end

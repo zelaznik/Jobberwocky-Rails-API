@@ -48,14 +48,27 @@ class User < ActiveRecord::Base
     onErrSkip { ity.email = auth["info"]["email"] }
   end
 
+  def self.github_parse(auth, ity)
+    ity.provider = auth["provider"]
+    ity.uid      = auth["uid"]
+
+    onErrSkip { ity.name = auth["info"]["name"]   }
+    onErrSkip { ity.image = auth["info"]["image"] }
+    onErrSkip { ity.email = auth["info"]["email"] }
+    onErrSkip { ity.link = auth["info"]["urls"]["GitHub"]   }
+  end
+
   def self.find_for_oauth(auth, signed_in_resource = nil)
     identity = Identity.find_for_oauth(auth)
     identity.raw = auth.to_json
     identity.save!
+
     if auth[:provider] == 'facebook'
-      facebook_parse(auth, identity)
+      facebook_parse auth, identity
     elsif auth[:provider] == 'twitter'
-      twitter_parse(auth, identity)
+      twitter_parse auth, identity
+    elsif auth[:provider] == 'github'
+      github_parse auth, identity
     end
 
     identity.save

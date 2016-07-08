@@ -8,9 +8,9 @@ gem 'rack-cors'
 
 gem 'devise'
 gem 'omniauth'
+gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
-gem 'omniauth-linkedin'
 
 gem 'byebug'
 gem 'pry-rails'

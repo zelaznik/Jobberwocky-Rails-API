@@ -1,7 +1,7 @@
 class CreateIdentities < ActiveRecord::Migration
   def change
     create_table :identities do |t|
-      t.references :user, force: :cascade
+      t.references :user, index: true, force: :cascade
       t.string :provider, null: false
       t.string :uid, null: false
 

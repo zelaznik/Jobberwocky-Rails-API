@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
       if user.nil?
         user_params = {
           name: auth.extra.raw_info.name,
-          email: email ? email : "uid-#{auth.uid}-#{auth.provider}@#{ENV['DOMAIN_NAME']}",
+          email: (email || identity.email || nil),
           password: Devise.friendly_token[0,20]
         }
         user = User.create(user_params)

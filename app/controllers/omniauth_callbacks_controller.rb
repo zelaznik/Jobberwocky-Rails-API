@@ -11,17 +11,16 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if user.persisted?
       user.generate_authentication_token!
-      auth = {
-        auth_token: user.auth_token,
-        email: user.email, id: user.id,
-        name: user.name, image: user.image
-      }
+      auth = CurrentUserSerializer.new(user).attributes
     else
       auth = {user: false}
     end
 
     base_url = "#{ENV['FRONT_END_URL']}/auth_callback"
-    redirect_to "#{base_url}?#{auth.to_query}"
+    payload = auth.to_json
+    md5 = Digest::MD5.hexdigest payload
+    data = Base64.urlsafe_encode64(payload)
+    redirect_to "#{base_url}?md5=#{md5}&data=#{data}"
   end
 
   def twitter

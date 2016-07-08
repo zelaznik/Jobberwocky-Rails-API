@@ -1,11 +1,4 @@
-class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  force_ssl if: proc { !Rails.env.development? }
-  protect_from_forgery with: :null_session
-
-  respond_to :json
-  respond_to :html, only: []
-  respond_to :xml, only: []
-
+class OmniauthCallbacksController < ApplicationController
   def provides_callback_for(provider)
     user = User.find_for_oauth(env["omniauth.auth"], current_user)
 

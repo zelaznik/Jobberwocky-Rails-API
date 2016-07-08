@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :authenticate_request, except: [:create]
+  before_action :authenticate_request, except: [:new, :create]
 
   def new
   end
@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
 
     if user && user.valid_password?(user_password)
       user.generate_authentication_token!
-      data = {user: {id: user.id, email: user.email, auth_token: user.auth_token}}
       render json: user, serializer: CurrentUserSerializer, status: 200
     else
       render json: { errors: "Invalid email or password" }, status: 422

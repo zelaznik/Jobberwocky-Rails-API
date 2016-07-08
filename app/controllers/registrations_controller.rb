@@ -1,5 +1,5 @@
 class RegistrationsController < ApplicationController
-  before_action :authenticate_request, except: [:create]
+  skip_before_action :authenticate_request, only: [:create]
 
   def create
     email = registration_params[:email]

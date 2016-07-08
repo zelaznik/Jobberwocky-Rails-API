@@ -1,8 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :authenticate_request, except: [:new, :create]
-
-  def new
-  end
+  skip_before_action :authenticate_request, only: [:create]
 
   def create
     user_email = session_params[:email]

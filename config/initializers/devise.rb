@@ -21,8 +21,12 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   config.omniauth :facebook, sec.facebook_app_id, sec.facebook_app_secret, {
-    provider_ignores_state: true, scope: 'email,public_profile'
+    scope: 'email,public_profile'
   }
-  config.omniauth :twitter, sec.twitter_key, sec.twitter_secret
-
+  config.omniauth :twitter, sec.twitter_key, sec.twitter_secret, {
+    scope: "user:email"
+  }
+  config.omniauth :github, sec.github_client_id, sec.github_client_secret, {
+    scope: "user:email,user:follow"
+  }
 end

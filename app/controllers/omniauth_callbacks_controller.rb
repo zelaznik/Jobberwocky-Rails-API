@@ -17,10 +17,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     payload = auth.to_json
-    md5 = Digest::MD5.hexdigest payload
     data = Base64.urlsafe_encode64(payload)
     base_url = "#{ENV['FRONT_END_URL']}/auth_callback"
-    redirect_to "#{base_url}?md5=#{md5}&data=#{data}"
+    redirect_to "#{base_url}?data=#{data}"
   end
 
   def twitter

@@ -54,10 +54,10 @@ class User < ActiveRecord::Base
 
   protected
     def email_required?
-      (!!super) && identities.empty?
+      false #(!!super) && identities.empty?
     end
 
     def password_required?
-      (!!super) && identities.empty?
+      false #(!!super) && identities.empty?
     end
 end

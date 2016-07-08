@@ -14,7 +14,7 @@ class RegistrationsController < ApplicationController
     else
       user = User.create! email: email, password: password
       user.generate_authentication_token!
-      render json: user, serializezr: CurrentUserSerializer, status: 200
+      render json: user, serializer: CurrentUserSerializer, status: 200
     end
   end
 

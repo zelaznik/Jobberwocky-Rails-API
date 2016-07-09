@@ -1,11 +1,3 @@
-def onErrSkip
-  begin
-    return yield
-  rescue Exception
-    return nil
-  end
-end
-
 class Identity < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :uid, :provider
@@ -14,26 +6,16 @@ class Identity < ActiveRecord::Base
   def self.find_for_oauth(auth)
     identity = find_or_create_by(uid: auth.uid, provider: auth.provider)
     identity.raw = auth.to_json
-    identity.save!
+    send "#{auth[:provider]}_parse", auth, identity
+    identity.user = User.find_or_create_by(email: identity.email)
 
-    if auth[:provider] == 'facebook'
-      facebook_parse auth, identity
-    elsif auth[:provider] == 'twitter'
-      twitter_parse auth, identity
-    elsif auth[:provider] == 'github'
-      github_parse auth, identity
-    end
-
+    identity.user.save!
     identity.save!
     return identity
   end
 
   private
-
   def self.facebook_parse(auth, ity)
-    ity.provider = auth["provider"]
-    ity.uid      = auth["uid"]
-
     onErrSkip { ity.name = auth["info"]["name"]  }
     onErrSkip { ity.image = auth["info"]["image"] }
     onErrSkip { ity.link = auth["info"]["link"]  }
@@ -41,9 +23,6 @@ class Identity < ActiveRecord::Base
   end
 
   def self.twitter_parse(auth, ity)
-    ity.provider = auth["provider"]
-    ity.uid      = auth["uid"]
-
     onErrSkip { ity.name = auth["info"]["name"]   }
     onErrSkip { ity.image = auth["info"]["image"] }
     onErrSkip { ity.link = auth["info"]["link"]   }
@@ -51,12 +30,24 @@ class Identity < ActiveRecord::Base
   end
 
   def self.github_parse(auth, ity)
-    ity.provider = auth["provider"]
-    ity.uid      = auth["uid"]
-
     onErrSkip { ity.name = auth["info"]["name"]   }
     onErrSkip { ity.image = auth["info"]["image"] }
     onErrSkip { ity.email = auth["info"]["email"] }
     onErrSkip { ity.link = auth["info"]["urls"]["GitHub"]   }
+  end
+
+  def self.onErrSkip
+    begin
+      return yield
+    rescue Exception
+    end
+  end
+
+  def parse_oauth_response
+    self.raw = auth.to_json
+
+    self.user = User.find_or_create_by(email: email)
+
+    user.save!
   end
 end

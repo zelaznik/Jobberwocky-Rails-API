@@ -3,6 +3,9 @@ Jobberwocky::Application.configure do
   ENV['FRONT_END_URL'] = 'http://www.jobberwocky.net'
   ENV['API_ROOT_URL'] =  'https://api.jobberwocky.net'
 
+  config.secret_key_base = ENV['SECRET_KEY_BASE']
+  config.secret_token = ENV['SECRET_TOKEN']
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

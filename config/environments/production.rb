@@ -6,6 +6,23 @@ Jobberwocky::Application.configure do
   config.secret_key_base = ENV['SECRET_KEY_BASE']
   config.secret_token = ENV['SECRET_TOKEN']
 
+  sec = Rails.application.secrets
+  sec.secret_token =          ENV['SECRET_TOKEN']
+  sec.secret_key_base =       ENV['SECRET_KEY_BASE']
+  sec.devise_secret_key =     ENV['DEVISE_SECRET_KEY']
+
+  sec.twitter_key =           ENV['TWITTER_CONSUMER_KEY']
+  sec.twitter_secret =        ENV['TWITTER_CONSUMER_SECRET']
+
+  sec.facebook_app_id =       ENV['FACEBOOK_APP_ID']
+  sec.facebook_app_secret =   ENV['FACEBOOK_APP_SECRET']
+
+  sec.github_client_id =      ENV['GITHUB_CLIENT_ID']
+  sec.github_client_secret =  ENV['GITHUB_CLIENT_SECRET']
+
+  sec.gmail_username =        ENV['GMAIL_USERNAME']
+  sec.gmail_password =        ENV['GMAIL_PASSWORD']
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

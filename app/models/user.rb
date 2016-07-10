@@ -7,11 +7,6 @@ class User < ActiveRecord::Base
   has_many :email_accounts, inverse_of: :user, dependent: :destroy
   has_many :auth_tokens, inverse_of: :user, dependent: :destroy
 
-  def self.create_with_omniauth(info)
-    raise NotImplementedError
-    create(name: info['name'])
-  end
-
   def self.find_for_oauth(auth, signed_in_resource = nil)
     Identity.find_for_oauth(auth).user
   end

@@ -1,4 +1,6 @@
 class OmniauthCallbacksController < ApplicationController
+  skip_before_action :authenticate_request
+
   def provides_callback_for(provider)
     user = User.find_for_oauth(env["omniauth.auth"], current_user)
 

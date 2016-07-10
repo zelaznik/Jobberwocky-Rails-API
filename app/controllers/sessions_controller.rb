@@ -24,11 +24,7 @@ class SessionsController < ApplicationController
   end
 
   def show
-    if current_user
-      render json: current_user, serializer: CurrentUserSerializer, status: 200
-    else
-      render json: {}, status: 404
-    end
+    render json: current_user, serializer: CurrentUserSerializer, status: 200
   end
 
   private

@@ -1,12 +1,10 @@
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
-  skip_before_filter :verify_authenticity_token
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
+  before_action :authenticate_request, except: [:preflight, :cors_preflight_check, :cors_set_access_control_headers]
 
   respond_to :json
-  respond_to :html, only: []
-  respond_to :xml, only: []
 
   def preflight
     render nothing: true
@@ -34,7 +32,7 @@ class ApplicationController < ActionController::API
 
   def authenticate_request
     if current_user.nil?
-      render json: 'authentication failed', status: 401
+      render json: { error: 'authentication failed' }, status: 401
     end
   end
 end

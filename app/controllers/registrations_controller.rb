@@ -13,6 +13,7 @@ class RegistrationsController < ApplicationController
     else
       user = User.create! email: email, password: password
       user.generate_authentication_token!
+      UserMailer.welcome_email(user).deliver_now
       render json: user, serializer: CurrentUserSerializer, status: 200
     end
   end
@@ -26,5 +27,4 @@ class RegistrationsController < ApplicationController
   def registration_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
-
 end

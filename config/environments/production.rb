@@ -1,5 +1,7 @@
 Jobberwocky::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  ENV['FRONT_END_URL'] = 'http://www.jobberwocky.net'
+  ENV['API_ROOT_URL'] =  'https://api.jobberwocky.net'
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -62,6 +64,5 @@ Jobberwocky::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  ENV['FRONT_END_URL'] = 'http://www.jobberwocky.net'
-  ENV['API_ROOT_URL'] =  'https://api.jobberwocky.net'
+
 end

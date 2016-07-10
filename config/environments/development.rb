@@ -1,5 +1,7 @@
 Jobberwocky::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  ENV['FRONT_END_URL'] = 'http://www.nodereactjs.dev'
+  ENV['API_ROOT_URL'] = 'http://www.railsapi.dev'
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -22,6 +24,5 @@ Jobberwocky::Application.configure do
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 
-  ENV['FRONT_END_URL'] = 'http://www.nodereactjs.dev'
-  ENV['API_ROOT_URL'] = 'http://www.railsapi.dev'
+  config.action_mailer.raise_delivery_errors = true
 end

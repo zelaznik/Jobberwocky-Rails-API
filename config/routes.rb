@@ -1,8 +1,8 @@
 Jobberwocky::Application.routes.draw do
-  match "*all", to: "application#preflight", via: [:options]
-
   scope constraints: {format: :json} do
-      devise_for :users, skip: [:passwords, :registrations], :controllers => {
+    match "*all", to: "application#preflight", via: [:options]
+
+    devise_for :users, skip: [:passwords, :registrations], :controllers => {
       omniauth_callbacks: "omniauth_callbacks",
       registrations: "registrations",
       sessions: 'sessions'
@@ -17,7 +17,7 @@ Jobberwocky::Application.routes.draw do
     resources :users, only: [:index, :show] do
       resources :messages, only: [:index]
     end
-  end
 
-  match "*all", to: "errors#not_found", via: :all
+    match "*all", to: "errors#not_found", via: :all
+  end
 end

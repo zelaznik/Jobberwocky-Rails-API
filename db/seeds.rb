@@ -16,7 +16,7 @@ me = User.create!(
   password: "password"
 )
 
-random_users.take(30).each_with_index do |data, i|
+random_users.each_with_index do |data, i|
   begin
     name = [data["name"]["first"], data["name"]["last"]]
     user = User.create!(

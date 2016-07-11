@@ -13,7 +13,7 @@ gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 
-gem 'active_model_serializers'
+gem 'active_model_serializers' #, '0.9.3'
 gem 'bcrypt-ruby', '~> 3.1.2'
 
 gem 'ffaker'

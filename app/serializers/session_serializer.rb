@@ -1,4 +1,4 @@
 class SessionSerializer < ActiveModel::Serializer
-  attributes :email, :name, :image, :auth_token
-  root 'current_user'
+  attributes :token, :expire_date
+  belongs_to :user, serializer: UserSerializer
 end

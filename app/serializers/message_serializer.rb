@@ -1,3 +1,4 @@
 class MessageSerializer < ActiveModel::Serializer
-  attributes :id, :sender, :body, :created_at
+  attributes :id, :body, :created_at
+  belongs_to :sender
 end

@@ -50,7 +50,7 @@ other_users.each_with_index do |user, i|
   alphas = msg_count.times.map { Random.rand }
   pair = [me, user].shuffle
   alphas.sort.each do |a|
-    pair.rotate if (Random.rand <= 0.75)
+    pair.rotate! if Random.rand <= 0.75
     stamp = start_time + diff_time * a
     Message.create!(
       sender:      pair[0],

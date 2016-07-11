@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def cors_set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = request.headers['Origin'] || ""
+    headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'Origin,Content-Type,X-Auth-Token,Authorization'
     headers['Access-Control-Max-Age'] = "1728000"

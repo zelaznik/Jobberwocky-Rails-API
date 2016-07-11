@@ -18,13 +18,13 @@ class SessionsController < ApplicationController
     if current_user.nil?
       render json: { errors: "User not found" }, status: 404
     else
-      auth_token.destroy!
+      current_session.destroy!
       head 204
     end
   end
 
   def show
-    render json: auth_token, status: 200
+    render json: current_session, status: 200
   end
 
   private

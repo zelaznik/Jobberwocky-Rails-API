@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20160711045134) do
 
   add_foreign_key "email_accounts", "users", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
-  add_foreign_key "messages", "users", column: "receiver_id", on_delete: :restrict
-  add_foreign_key "messages", "users", column: "sender_id", on_delete: :restrict
+  add_foreign_key "messages", "users", column: "receiver_id", on_delete: :cascade
+  add_foreign_key "messages", "users", column: "sender_id", on_delete: :cascade
   add_foreign_key "sessions", "users", on_delete: :cascade
 end

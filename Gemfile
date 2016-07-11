@@ -16,6 +16,9 @@ gem 'omniauth-facebook'
 gem 'active_model_serializers', '0.9.3'
 gem 'bcrypt-ruby', '~> 3.1.2'
 
+gem 'ffaker'
+gem 'faker'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -30,8 +33,4 @@ end
 group :test do
   gem "rspec-rails"
   gem "factory_girl_rails"
-end
-
-group :development, :test do
-    gem 'ffaker'
 end

@@ -11,8 +11,9 @@ class CreateMessages < ActiveRecord::Migration
     add_index :messages, :sender_id
     add_index :messages, :receiver_id
     add_index :messages, [:sender_id, :receiver_id]
+    add_index :messages, :created_at
 
-    add_foreign_key :messages, :users, column: :sender_id, on_delete: :restrict
-    add_foreign_key :messages, :users, column: :receiver_id, on_delete: :restrict
+    add_foreign_key :messages, :users, column: :sender_id, on_delete: :cascade
+    add_foreign_key :messages, :users, column: :receiver_id, on_delete: :cascade
   end
 end

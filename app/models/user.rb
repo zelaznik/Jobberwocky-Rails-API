@@ -20,11 +20,11 @@ class User < ActiveRecord::Base
   end
 
   protected
-    def email_required?
-      (!!super) && identities.empty?
-    end
+  def email_required?
+    false
+  end
 
-    def password_required?
-      (!!super) && identities.empty?
-    end
+  def password_required?
+    false
+  end
 end

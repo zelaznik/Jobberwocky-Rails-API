@@ -8,13 +8,14 @@ Jobberwocky::Application.routes.draw do
       sessions: 'sessions'
     }
 
-    get "/current_user", to: "sessions#show"
+    get "/session", to: "sessions#show"
     post "/users", to: "registrations#create"
     delete "/users", to: "registrations#destroy"
     post "users/request_new_password", to: "registrations#request_new_password"
     post "users/assign_new_password", to: "registrations#assign_new_password"
 
     resources :users, only: [:index, :show] do
+      resources :messages, only: [:index]
     end
   end
 

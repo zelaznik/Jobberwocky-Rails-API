@@ -3,6 +3,6 @@ class Message < ActiveRecord::Base
   belongs_to :receiver, class_name: "User", foreign_key: :receiver_id
 
   def self.between(a, b)
-    where(thread_id: "#{[a,b].min}.#{[a,b].max}")
+    where thread_id: [a, b].map(&:to_i).sort.join(".")
   end
 end

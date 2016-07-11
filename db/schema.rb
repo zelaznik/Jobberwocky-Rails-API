@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711000026) do
+ActiveRecord::Schema.define(version: 20160711045134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,18 @@ ActiveRecord::Schema.define(version: 20160711000026) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "sender_id",   null: false
+    t.integer  "receiver_id", null: false
+    t.text     "body",        null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "messages", ["receiver_id"], name: "index_messages_on_receiver_id", using: :btree
+  add_index "messages", ["sender_id", "receiver_id"], name: "index_messages_on_sender_id_and_receiver_id", using: :btree
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.integer  "user_id",     null: false
@@ -72,5 +84,7 @@ ActiveRecord::Schema.define(version: 20160711000026) do
 
   add_foreign_key "email_accounts", "users", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
+  add_foreign_key "messages", "users", column: "receiver_id", on_delete: :restrict
+  add_foreign_key "messages", "users", column: "sender_id", on_delete: :restrict
   add_foreign_key "sessions", "users", on_delete: :cascade
 end

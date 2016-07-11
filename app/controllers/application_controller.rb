@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
-  before_filter :cors_preflight_check
-  after_filter :cors_set_access_control_headers
-  before_action :authenticate_request, except: [:preflight, :cors_preflight_check, :cors_set_access_control_headers]
+  before_action  :cors_preflight_check
+  before_action  :cors_set_access_control_headers
+  before_action  :authenticate_request, except: [:preflight, :cors_preflight_check, :cors_set_access_control_headers]
 
   respond_to :json
 
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def cors_preflight_check
-    if request.method == :options
+    if request.method == "OPTIONS"
       headers['Access-Control-Request-Method'] = '*'
       headers['Access-Control-Allow-Origin']   = request.headers['Origin'] || "*"
       headers['Access-Control-Allow-Methods']  = 'POST, PUT, DELETE, GET, OPTIONS'

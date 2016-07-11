@@ -23,5 +23,3 @@ module Jobberwocky
     end
   end
 end
-
-ENV['DOMAIN_NAME'] = 'jobberwocky.net'

@@ -8,7 +8,7 @@ class OmniauthCallbacksController < ApplicationController
       token = user.generate_authentication_token!
       auth = SessionSerializer.new(token).to_hash
     else
-      auth = {user: false}
+      auth = { user: false }
     end
 
     payload = auth.to_json

@@ -15,7 +15,8 @@ Jobberwocky::Application.routes.draw do
     post "users/assign_new_password", to: "registrations#assign_new_password"
 
     resources :users, only: [:index, :show] do
-      resources :messages, only: [:index]
+      resources :messages, only: [:index, :create]
+      
     end
 
     match "*all", to: "errors#not_found", via: :all

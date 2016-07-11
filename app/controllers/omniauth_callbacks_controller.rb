@@ -13,8 +13,9 @@ class OmniauthCallbacksController < ApplicationController
 
     payload = auth.to_json
     data = Base64.urlsafe_encode64(payload)
-    base_url = "#{ENV['FRONT_END_URL']}/auth_callback"
-    redirect_to "#{base_url}?data=#{data}"
+    base_url = "#{ENV['FRONT_END_URL']}"
+    base_url = base_url[0...-1] if base_url.last == '/'
+    redirect_to "#{base_url}/auth_callback?data=#{data}"
   end
 
   def twitter

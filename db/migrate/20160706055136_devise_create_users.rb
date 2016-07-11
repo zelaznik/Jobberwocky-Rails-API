@@ -2,6 +2,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
   def change
     create_table(:users) do |t|
       ## Database authenticatable, unless omniauthable
+      t.string :name
       t.string :email
       t.string :encrypted_password
 

@@ -26,12 +26,16 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Max-Age'] = "1728000"
   end
 
+  def auth_token
+    Session.find_by(token: request.headers['Authorization'])
+  end
+
   def current_user
-    @current_user ||= User.find_by auth_token: request.headers['Authorization']
+    auth_token.nil? ? nil : auth_token.current_user
   end
 
   def authenticate_request
-    if current_user.nil?
+    unless auth_token.try(:is_valid?)
       render json: { error: 'authentication failed' }, status: 401
     end
   end

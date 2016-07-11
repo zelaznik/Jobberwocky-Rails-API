@@ -7,8 +7,8 @@ class SessionsController < ApplicationController
     user = User.find_by(email: user_email)
 
     if user && user.valid_password?(user_password)
-      user.generate_authentication_token!
-      render json: user, serializer: CurrentUserSerializer, status: 200
+      session = user.generate_authentication_token!
+      render json: session, status: 200
     else
       render json: { errors: "Invalid email or password" }, status: 422
     end
@@ -18,13 +18,13 @@ class SessionsController < ApplicationController
     if current_user.nil?
       render json: { errors: "User not found" }, status: 404
     else
-      current_user.generate_authentication_token!
+      auth_token.destroy!
       head 204
     end
   end
 
   def show
-    render json: current_user, serializer: CurrentUserSerializer, status: 200
+    render json: auth_token, status: 200
   end
 
   private

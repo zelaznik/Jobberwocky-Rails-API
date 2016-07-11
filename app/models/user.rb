@@ -3,11 +3,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :identities, inverse_of: :user, dependent: :destroy
-  has_many :email_accounts, inverse_of: :user, dependent: :destroy
-  has_many :auth_tokens, inverse_of: :user, dependent: :destroy
+  has_many :identities, dependent: :destroy
+  has_many :email_accounts, dependent: :destroy
+  has_many :sessions, dependent: :destroy
 
-  def self.find_for_oauth(auth, signed_in_resource = nil)
+  def self.find_for_oauth(auth, *args)
     Identity.find_for_oauth(auth).user
   end
 
@@ -16,8 +16,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_authentication_token!
-    self.auth_token = Devise.friendly_token
-    save!
+    Session.create! user: self, token: Devise.friendly_token, expire_date: Time.now + 1.day
   end
 
   protected

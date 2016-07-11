@@ -5,8 +5,8 @@ class OmniauthCallbacksController < ApplicationController
     user = User.find_for_oauth(env["omniauth.auth"], current_user)
 
     if user.persisted?
-      user.generate_authentication_token!
-      auth = CurrentUserSerializer.new(user).attributes
+      token = user.generate_authentication_token!
+      auth = SessionSerializer.new(token).attributes
     else
       auth = {user: false}
     end

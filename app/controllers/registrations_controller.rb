@@ -12,9 +12,9 @@ class RegistrationsController < ApplicationController
       render json: { errors: "User already exists with that email"}, status: 422
     else
       user = User.create! email: email, password: password
-      user.generate_authentication_token!
+      session = user.generate_authentication_token!
       UserMailer.welcome_email(user).deliver_now
-      render json: user, serializer: CurrentUserSerializer, status: 200
+      render json: session, status: 200
     end
   end
 

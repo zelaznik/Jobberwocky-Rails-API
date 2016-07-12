@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
       @message = Message.create!(sender: current_user, receiver_id: params[:user_id], body: params[:body])
       render json: @message, status: 200
     rescue Exception => e
-      render json: {error: e._to_s}, status: 422
+      render json: {error: e.to_s}, status: 500
     end
   end
 end

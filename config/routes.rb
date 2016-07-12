@@ -16,7 +16,6 @@ Jobberwocky::Application.routes.draw do
 
     resources :users, only: [:index, :show] do
       resources :messages, only: [:index, :create]
-      
     end
 
     match "*all", to: "errors#not_found", via: :all

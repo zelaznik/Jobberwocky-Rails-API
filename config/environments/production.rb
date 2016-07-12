@@ -20,6 +20,10 @@ Jobberwocky::Application.configure do
   sec.gmail_username =        ENV['GMAIL_USERNAME']
   sec.gmail_password =        ENV['GMAIL_PASSWORD']
 
+  sec.pusher_app_id =         ENV['PUSHER_APP_ID']
+  sec.pusher_key =            ENV['PUSHER_KEY']
+  sec.pusher_app_secret =     ENV['PUSHER_APP_SECRET']
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

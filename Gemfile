@@ -19,6 +19,8 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'ffaker'
 gem 'faker'
 
+gem 'pusher'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

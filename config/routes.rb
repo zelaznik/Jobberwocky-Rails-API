@@ -18,6 +18,7 @@ Jobberwocky::Application.routes.draw do
       resources :messages, only: [:index, :create]
     end
 
+    match "pusher_auth/:token", to: "pusher#auth", via: :all
     match "*all", to: "errors#not_found", via: :all
   end
 end

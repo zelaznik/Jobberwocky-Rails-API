@@ -20,7 +20,7 @@ random_users.each_with_index do |data, i|
   begin
     name = [data["name"]["first"], data["name"]["last"]]
     user = User.create!(
-      name: "#{name.join(' ')}",
+      name: "#{name.map(&:capitalize).join(' ')}",
       email: "#{name.join('.')}@jobberwocky.net",
       password: "password"
     )
@@ -53,11 +53,8 @@ other_users.each_with_index do |user, i|
     pair.rotate! if Random.rand <= 0.75
     stamp = start_time + diff_time * a
     Message.create!(
-      sender:      pair[0],
-      receiver:    pair[1],
-      created_at:  stamp,
-      updated_at:  stamp,
-      body:        Faker::Hacker.say_something_smart
+      sender: pair[0], receiver: pair[1], created_at: stamp, updated_at: stamp,
+      body: 4.times.map { Faker::Hacker.say_something_smart }.join('  ')
     )
   end
   puts "Creating messages #{(100*i/other_user_count).to_i}% complete."

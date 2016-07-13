@@ -8,7 +8,7 @@ class Identity < ActiveRecord::Base
     identity.raw = auth.to_json
     send "#{auth[:provider]}_parse", auth, identity
     identity.user = User.find_or_create_by(email: identity.email)
-
+    identity.user.name ||= identity.name
     identity.user.save!
     identity.save!
     return identity

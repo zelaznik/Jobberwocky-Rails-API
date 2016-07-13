@@ -18,6 +18,10 @@ class OmniauthCallbacksController < ApplicationController
     redirect_to "#{base_url}/auth_callback?data=#{data}"
   end
 
+  def failure
+    render json: { error: params }, status: 500
+  end
+
   def twitter
     provides_callback_for :twitter
   end
@@ -28,6 +32,14 @@ class OmniauthCallbacksController < ApplicationController
 
   def github
     provides_callback_for :github
+  end
+
+  def google
+    provides_callback_for :google
+  end
+
+  def google_oauth2
+    provides_callback_for :google_oauth2
   end
 
   def auth_params

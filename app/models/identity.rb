@@ -36,6 +36,12 @@ class Identity < ActiveRecord::Base
     onErrSkip { ity.link = auth["info"]["urls"]["GitHub"]   }
   end
 
+  def self.google_oauth2_parse(auth, ity)
+    onErrSkip { ity.name = auth["info"]["name"]   }
+    onErrSkip { ity.image = auth["info"]["image"] }
+    onErrSkip { ity.email = auth["info"]["email"] }
+  end
+
   def self.onErrSkip
     begin
       return yield

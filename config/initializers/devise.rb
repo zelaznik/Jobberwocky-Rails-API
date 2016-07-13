@@ -20,13 +20,16 @@ Devise.setup do |config|
 
   config.sign_out_via = :delete
 
-  config.omniauth :facebook, sec.facebook_app_id, sec.facebook_app_secret, {
+  config.omniauth(:facebook, sec.facebook_app_id, sec.facebook_app_secret, {
     scope: 'email,public_profile'
-  }
-  config.omniauth :twitter, sec.twitter_key, sec.twitter_secret, {
+  })
+  config.omniauth(:google_oauth2, sec.google_client_id, sec.google_client_secret, {
+    scope: 'https://www.googleapis.com/auth/userinfo.email'
+  })
+  config.omniauth(:twitter, sec.twitter_key, sec.twitter_secret, {
     scope: "user:email"
-  }
-  config.omniauth :github, sec.github_client_id, sec.github_client_secret, {
+  })
+  config.omniauth(:github, sec.github_client_id, sec.github_client_secret, {
     scope: "user:email,user:follow"
-  }
+  })
 end

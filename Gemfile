@@ -12,6 +12,7 @@ gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
+gem "omniauth-google-oauth2"
 
 gem 'active_model_serializers' #, '0.9.3'
 gem 'bcrypt-ruby', '~> 3.1.2'

@@ -1,9 +1,10 @@
 Jobberwocky::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.secret_key_base = ENV['SECRET_KEY_BASE']
-  config.secret_token = ENV['SECRET_TOKEN']
-
   sec = Rails.application.secrets
+
+  config.secret_key_base =    ENV['SECRET_KEY_BASE']
+  config.secret_token =       ENV['SECRET_TOKEN']
+
   sec.secret_token =          ENV['SECRET_TOKEN']
   sec.secret_key_base =       ENV['SECRET_KEY_BASE']
   sec.devise_secret_key =     ENV['DEVISE_SECRET_KEY']
@@ -16,6 +17,9 @@ Jobberwocky::Application.configure do
 
   sec.github_client_id =      ENV['GITHUB_CLIENT_ID']
   sec.github_client_secret =  ENV['GITHUB_CLIENT_SECRET']
+
+  sec.google_client_id =      ENV['GOOGLE_CLIENT_ID']
+  sec.google_client_secret =  ENV['GOOGLE_CLIENT_SECRET']
 
   sec.gmail_username =        ENV['GMAIL_USERNAME']
   sec.gmail_password =        ENV['GMAIL_PASSWORD']

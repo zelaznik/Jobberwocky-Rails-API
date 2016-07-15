@@ -1,5 +1,5 @@
 class Session < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, inverse_of: :sessions
   validates_presence_of :user
 
   def is_valid?
@@ -14,15 +14,7 @@ class Session < ActiveRecord::Base
     token
   end
 
-  def email
-    current_user.try(:email)
-  end
-
-  def name
-    current_user.try(:name)
-  end
-
-  def image
-    current_user.try(:image)
+  [:email, :name, :image].each do |field|
+    define_method(field) { current_user.try(field) }
   end
 end

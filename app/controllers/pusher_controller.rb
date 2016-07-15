@@ -11,6 +11,6 @@ class PusherController < ApplicationController
   end
 
   def current_session
-    Session.find_by token: params[:token]
+    @current_session ||= Session.joins(user: [:identities]).find_by token: params[:token]
   end
 end

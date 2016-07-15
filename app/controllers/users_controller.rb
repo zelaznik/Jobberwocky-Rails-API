@@ -8,4 +8,9 @@ class UsersController < ApplicationController
   def show
     respond_with User.find(params[:id])
   end
+
+  private
+  def model
+    User.main_scope
+  end
 end

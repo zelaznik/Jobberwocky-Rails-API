@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_session
-    Session.find_by(token: request.headers['Authorization'])
+    @current_session ||= Session.joins(user: [:identities]).find_by(token: request.headers['Authorization'])
   end
 
   def current_user

@@ -22,24 +22,8 @@ class OmniauthCallbacksController < ApplicationController
     render json: { error: params }, status: 500
   end
 
-  def twitter
-    provides_callback_for :twitter
-  end
-
-  def facebook
-    provides_callback_for :facebook
-  end
-
-  def github
-    provides_callback_for :github
-  end
-
-  def google
-    provides_callback_for :google
-  end
-
-  def google_oauth2
-    provides_callback_for :google_oauth2
+  [:twitter,:facebook,:github,:google_oauth2].each do |provider|
+    define_method(provider) { provides_callback_for(provider) }
   end
 
   def auth_params

@@ -3,6 +3,5 @@ class MessageSerializer < ApplicationSerializer
   belongs_to :sender
   class UserSerializer < ApplicationSerializer
     attributes :id, :name, :image
-    has_many :identities
   end
 end
